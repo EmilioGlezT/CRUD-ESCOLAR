@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Asignar Calificación{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Asignar Calificación</h1>
+    <p><strong>Estudiante:</strong> {{ enrollment.student.user.username }}</p>
+    <p><strong>Materia:</strong> {{ enrollment.subject.name }}</p>
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="grade" class="form-label">Calificación:</label>
+            <input type="number" name="grade" id="grade" class="form-control" value="{{ enrollment.grade }}" min="0" max="100" required>
+            <div class="invalid-feedback">
+                Por favor, ingresa una calificación válida entre 0 y 100.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'enrollment_list' %}" class="btn btn-secondary">Volver</a>
+    </form>
+</div>
+{% endblock %}

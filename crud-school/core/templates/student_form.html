@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Formulario de Estudiante{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Estudiante</h1>
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'student_list' %}" class="btn btn-secondary">Volver a la lista</a>
+    </form>
+</div>
+{% endblock %}

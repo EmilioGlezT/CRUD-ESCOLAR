@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Inscripciones{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Inscripciones por Materia</h1>
+
+    {% for subject_name, enrollments in grouped_enrollments.items %}
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h5 mb-0">{{ subject_name }}</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for enrollment in enrollments %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>
+                                <strong>Estudiante:</strong> {{ enrollment.student.user.username }} 
+                                <br>
+                                <strong>Calificación:</strong> 
+                                {% if enrollment.grade %}
+                                    {{ enrollment.grade }}
+                                {% else %}
+                                    <span class="text-muted">No asignada</span>
+                                {% endif %}
+                            </span>
+                            <a href="{% url 'grade_student' enrollment.id %}" class="btn btn-primary btn-sm">Asignar/Editar Calificación</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Asignar Materia a Estudiante{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Asignar Materia a Estudiante</h1>
+    <form method="POST" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="student" class="form-label">Estudiante:</label>
+            <select name="student" id="student" class="form-select" required>
+                <option value="" disabled selected>Selecciona un estudiante</option>
+                {% for student in students %}
+                    <option value="{{ student.id }}">{{ student.user.username }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+                Por favor selecciona un estudiante.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="subject" class="form-label">Materia:</label>
+            <select name="subject" id="subject" class="form-select" required>
+                <option value="" disabled selected>Selecciona una materia</option>
+                {% for subject in subjects %}
+                    <option value="{{ subject.id }}">{{ subject.name }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+                Por favor selecciona una materia.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Asignar Materia</button>
+        <a href="{% url 'enrollment_list' %}" class="btn btn-secondary">Volver</a>
+    </form>
+</div>
+{% endblock %}
